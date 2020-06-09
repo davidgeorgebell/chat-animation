@@ -1,26 +1,68 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect, useRef } from 'react';
+// import { motion } from "framer-motion"
 
-function App() {
+const messages = [
+  { text: 'How do I get a web-site or app for my business?' },
+  { text: 'Use a web developer!' },
+  { text: 'OK! How do I find one?' },
+  { text: 'Iono. Just Google it?' },
+  { text: 'Oh! This guy looks good!' },
+  { text: 'Send me the link?!' },
+  { text: 'davidbell.co' },
+];
+
+export default function App() {
+  const [messageToShow, setMessageToShow] = useState(0);
+
+  useInterval(() => {
+    setMessageToShow(messageToShow => messageToShow + 1);
+  }, 2000);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app'>
+      <div className='walkthrough'>
+        {messages.map((message, index) => {
+          if (index > messageToShow) return <div key={index} />;
+
+          return <Message key={index} message={message} />;
+        })}
+      </div>
     </div>
   );
 }
 
-export default App;
+function Message({ message }) {
+  return (
+    <div className='message'>
+      <div className='avatar'>
+        <span role='img' aria-label='frog'>
+          🐸
+        </span>
+      </div>
+      <div className='text'>{message.text}</div>
+      <div className='avatar'>
+        <span role='img' aria-label='monkey'></span>🐵
+      </div>
+    </div>
+  );
+}
+
+function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  // Remember the latest callback.
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
+}
