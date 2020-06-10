@@ -22,6 +22,12 @@ export default function App() {
     <div className='app'>
       <div className='walkthrough'>
         {messages.map((message, index) => {
+          const even = index % 2 === 0;
+
+          if (messageToShow + 1 === index) {
+            return <TypingIndicator key={index} even={even} />;
+          }
+
           if (index > messageToShow) return <div key={index} />;
 
           return <Message key={index} message={message} />;
@@ -42,6 +48,18 @@ function Message({ message }) {
       <div className='text'>{message.text}</div>
       <div className='avatar'>
         <span role='img' aria-label='monkey'></span>🐵
+      </div>
+    </div>
+  );
+}
+
+function TypingIndicator({ even }) {
+  return (
+    <div className={`typing ${even ? 'is-right' : 'is-left'}`}>
+      <div className='dots'>
+        <div />
+        <div />
+        <div />
       </div>
     </div>
   );
