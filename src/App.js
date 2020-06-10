@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-// import { motion } from "framer-motion"
+import { motion } from 'framer-motion';
 
 const messages = [
   { text: 'How do I get a web-site or app for my business?' },
@@ -39,7 +39,10 @@ export default function App() {
 
 function Message({ message }) {
   return (
-    <div className='message'>
+    <motion.div
+      className='message'
+      initial={{ scale: 0.2 }}
+      animate={{ scale: 1 }}>
       <div className='avatar'>
         <span role='img' aria-label='frog'>
           🐸
@@ -49,19 +52,22 @@ function Message({ message }) {
       <div className='avatar'>
         <span role='img' aria-label='monkey'></span>🐵
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 function TypingIndicator({ even }) {
   return (
-    <div className={`typing ${even ? 'is-right' : 'is-left'}`}>
+    <motion.div
+      className={`typing ${even ? 'is-right' : 'is-left'}`}
+      initial={{ rotate: 10, scale: 0 }}
+      animate={{ rotate: 0, scale: 1 }}>
       <div className='dots'>
         <div />
         <div />
         <div />
       </div>
-    </div>
+    </motion.div>
   );
 }
 
