@@ -2,13 +2,18 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 const messages = [
-  { text: 'How do I get a web-site or app for my business?' },
-  { text: 'Use a web developer!' },
-  { text: 'OK! How do I find one?' },
-  { text: 'Iono. Just Google it?' },
-  { text: 'Oh! This guy looks good!' },
-  { text: 'Send me the link?!' },
-  { text: 'davidbell.co' },
+  { text: "You're late." },
+  {
+    text:
+      'A Wizard is never late, Frodo Baggins,  nor is he early. He arrives precisely when he means to.',
+  },
+  { text: "It's wonderful to see you, Gandalf!" },
+  { text: " You didn't think I'd miss your Uncle Bilbo's birthday? " },
+  { text: 'What news of the outside world? Tell me everything!' },
+  {
+    text:
+      'What, everything? Far too eager and curious for a Hobbit. Most unnatural...',
+  },
 ];
 
 export default function App() {
@@ -16,7 +21,7 @@ export default function App() {
 
   useInterval(() => {
     setMessageToShow(messageToShow => messageToShow + 1);
-  }, 2000);
+  }, 3000);
 
   return (
     <div className='app'>
@@ -44,13 +49,15 @@ function Message({ message }) {
       initial={{ scale: 0.2 }}
       animate={{ scale: 1 }}>
       <div className='avatar'>
-        <span role='img' aria-label='frog'>
-          🐸
+        <span role='img' aria-label='hobbit'>
+          🧒🏻
         </span>
       </div>
       <div className='text'>{message.text}</div>
       <div className='avatar'>
-        <span role='img' aria-label='monkey'></span>🐵
+        <span role='img' aria-label='wizard'>
+          🧙‍♂️
+        </span>
       </div>
     </motion.div>
   );
